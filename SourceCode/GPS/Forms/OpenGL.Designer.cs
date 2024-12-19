@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using System.Windows.Forms;
@@ -164,8 +164,8 @@ namespace AgOpenGPS
                                     count2 = triList.Count;
                                     GL.Begin(PrimitiveType.TriangleStrip);
 
-                                    if (isDay) GL.Color4((byte)triList[0].easting, (byte)triList[0].northing, (byte)triList[0].heading, (byte)152);
-                                    else GL.Color4((byte)triList[0].easting, (byte)triList[0].northing, (byte)triList[0].heading, (byte)(152 * 0.5));
+                                    if (isDay) GL.Color4((byte)triList[0].easting, (byte)triList[0].northing, (byte)triList[0].heading, (byte)215); // change from (byte)152)removes the transpency
+                                    else GL.Color4((byte)triList[0].easting, (byte)triList[0].northing, (byte)triList[0].heading, (byte)(215));// change from (byte)(152 * 0.5)) removes the transpency
 
                                     //if large enough patch and camera zoomed out, fake mipmap the patches, skip triangles
                                     if (count2 >= (mipmap + 2))
@@ -259,8 +259,8 @@ namespace AgOpenGPS
 
                     if (patchCounter > 0)
                     {
-                        if (isDay) GL.Color4(sectionColorDay.R, sectionColorDay.G, sectionColorDay.B, (byte)152);
-                        else GL.Color4(sectionColorDay.R, sectionColorDay.G, sectionColorDay.B, (byte)(76));
+                        if (isDay) GL.Color4(sectionColorDay.R, sectionColorDay.G, sectionColorDay.B, (byte)215); // change now not fully removes the transpency
+                        else GL.Color4(sectionColorDay.R, sectionColorDay.G, sectionColorDay.B, (byte)(215));// change now not fully removes the transpency
 
                         for (int j = 0; j < triStrip.Count; j++)
                         {
@@ -268,8 +268,8 @@ namespace AgOpenGPS
                             {
                                 if (tool.isMultiColoredSections)
                                 {
-                                    if (isDay) GL.Color4(tool.secColors[j].R, tool.secColors[j].G, tool.secColors[j].B, (byte)152);
-                                    else GL.Color4(tool.secColors[j].R, tool.secColors[j].G, tool.secColors[j].B, (byte)(76));
+                                    if (isDay) GL.Color4(tool.secColors[j].R, tool.secColors[j].G, tool.secColors[j].B, (byte)215);// change now not fully removes the transpency
+                                    else GL.Color4(tool.secColors[j].R, tool.secColors[j].G, tool.secColors[j].B, (byte)(215));// change now not fully removes the transpency
                                 }
                                 patchCount = triStrip[j].patchList.Count;
 
