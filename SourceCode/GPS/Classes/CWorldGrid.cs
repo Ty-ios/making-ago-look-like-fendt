@@ -1,4 +1,4 @@
-﻿//Please, if you use this, share the improvements
+//Please, if you use this, share the improvements
 
 using OpenTK.Graphics.OpenGL;
 using System;
@@ -113,18 +113,19 @@ namespace AgOpenGPS
         public void DrawWorldGrid(double _gridZoom)
         {
             //_gridZoom *= 0.5;
+            _gridZoom = 9; // change Set this to the desired grid size (adjust as needed) made with Chatgpt
 
             GL.Rotate(-gridRotation, 0, 0, 1.0);
 
             if (mf.isDay)
             {
-                GL.Color3(0.35, 0.35, 0.35);
+                GL.Color3(0.486, 0.694, 0.349); // change day grid color from gray 0.35, 0.35, 0.35 to fendt green backgound (0.486, 0.694, 0.349)
             }
             else
             {
-                GL.Color3(0.17, 0.17, 0.17);
+                GL.Color3(0.854, 0.902, 0.608); // change night grid color from gray 0.17, 0.17, 0.17) to fendt yellow backgound (0.8588, 0.8863, 0.6118)
             }
-            GL.LineWidth(1);
+            GL.LineWidth(2); // change made gridline bigger from 1 to 2
             GL.Begin(PrimitiveType.Lines);
             for (double num = Math.Round(eastingMin / _gridZoom, MidpointRounding.AwayFromZero) * _gridZoom; num < eastingMax; num += _gridZoom)
             {
