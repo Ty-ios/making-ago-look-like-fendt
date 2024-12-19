@@ -1,4 +1,4 @@
-﻿using OpenTK.Graphics.OpenGL;
+using OpenTK.Graphics.OpenGL;
 using System;
 using System.Collections.Generic;
 
@@ -390,16 +390,16 @@ namespace AgOpenGPS
             double sinHL = Math.Sin(abHeading + glm.PIBy2) * (widthMinusOverlap * 0.5 - shadowOffset);
             double cosHL = Math.Cos(abHeading + glm.PIBy2) * (widthMinusOverlap * 0.5 - shadowOffset);
 
-            //shadow
-            GL.Color4(0.5, 0.5, 0.5, 0.3);
-            GL.Begin(PrimitiveType.TriangleFan);
-            {
-                GL.Vertex3(currentLinePtA.easting - sinHL, currentLinePtA.northing - cosHL, 0);
-                GL.Vertex3(currentLinePtA.easting + sinHR, currentLinePtA.northing + cosHR, 0);
-                GL.Vertex3(currentLinePtB.easting + sinHR, currentLinePtB.northing + cosHR, 0);
-                GL.Vertex3(currentLinePtB.easting - sinHL, currentLinePtB.northing - cosHR, 0);
-            }
-            GL.End();
+            //shadow  // change disable line shadow that makes the current line darker
+            //GL.Color4(0.5, 0.5, 0.5, 0.3);
+            //GL.Begin(PrimitiveType.TriangleFan);
+            //{
+            //GL.Vertex3(currentLinePtA.easting - sinHL, currentLinePtA.northing - cosHL, 0);
+            //GL.Vertex3(currentLinePtA.easting + sinHR, currentLinePtA.northing + cosHR, 0);
+            //GL.Vertex3(currentLinePtB.easting + sinHR, currentLinePtB.northing + cosHR, 0);
+            //GL.Vertex3(currentLinePtB.easting - sinHL, currentLinePtB.northing - cosHR, 0);
+            //}
+            //GL.End();
 
             //shadow lines
             GL.Color4(0.55, 0.55, 0.55, 0.3);
@@ -416,14 +416,14 @@ namespace AgOpenGPS
             //draw current AB Line
             GL.LineWidth(lineWidth*3);
             GL.Begin(PrimitiveType.Lines);
-            GL.Color4(0,0,0, 0.7);
+            GL.Color4(0.62, 0.47, 0.09, 0.9); // change from 0.0, 0.0, 0.0, 0.7 to fendt braun 0.62, 0.47, 0.09, 0.9
             GL.Vertex3(currentLinePtA.easting, currentLinePtA.northing, 0.0);
             GL.Vertex3(currentLinePtB.easting, currentLinePtB.northing, 0.0);
             GL.End();
 
-            GL.LineWidth(lineWidth);
+            GL.LineWidth(8); // change set linewidth from 2-8 to always 8
             GL.Begin(PrimitiveType.Lines);
-            GL.Color3(0.95f, 0.20f, 0.950f);
+            GL.Color3(0.62f, 0.47f, 0.09f); // change from color magenta(0.95f, 0.20f, 0.950f) to fendt braun(0.62f, 0.47f, 0.09f)
             GL.Vertex3(currentLinePtA.easting, currentLinePtA.northing, 0.0);
             GL.Vertex3(currentLinePtB.easting, currentLinePtB.northing, 0.0);
             GL.End();
@@ -436,8 +436,8 @@ namespace AgOpenGPS
                 double cosHeading = Math.Cos(-abHeading);
                 double sinHeading = Math.Sin(-abHeading);
 
-                GL.Color4(0,0,0, 0.5);
-                GL.LineWidth(1);
+                GL.Color4(0, 0, 0, 0.0);  // change from 0,0,0, 0.3 to 0,0,0, 0.0
+                GL.LineWidth(0);// change from 1 to 0
                 GL.Begin(PrimitiveType.Lines);
 
                 if (toolOffset == 0)
@@ -451,11 +451,11 @@ namespace AgOpenGPS
                         GL.Vertex3((cosHeading * (-toolWidth * i)) + currentLinePtB.easting, (sinHeading * (-toolWidth * i)) + currentLinePtB.northing, 0);
                     }
                     GL.End();
-                    GL.Enable(EnableCap.LineStipple);
-                    GL.LineStipple(1, 0x000F);
+                    //GL.Enable(EnableCap.LineStipple);// change full extra guide lines
+                    //GL.LineStipple(1, 0x000F); // change full extra guide lines
 
-                    GL.Color4(0.9907f, 0.990f, 0.9750f, 0.5f);
-                    GL.LineWidth(2);
+                    GL.Color4(0.62f, 0.47f, 0.09f, 1.0f); //change from GL.Color4(0.9907f, 0.990f, 0.9750f, 0.5f);  to  fendt braun 0.62f, 0.47f, 0.09f
+                    GL.LineWidth(lineWidth); // change from 2 to lineWidth to be able to make how you like it 
                     GL.Begin(PrimitiveType.Lines);
 
                     for (int i = 1; i <= numGuideLines; i++)
@@ -501,7 +501,7 @@ namespace AgOpenGPS
                     GL.End();
 
                 }
-                GL.Disable(EnableCap.LineStipple);
+                //GL.Disable(EnableCap.LineStipple); // change full extra guide lines
             }
 
             if (!mf.isStanleyUsed && mf.camera.camSetDistance > -200)
