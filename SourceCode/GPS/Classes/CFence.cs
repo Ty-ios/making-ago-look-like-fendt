@@ -1,4 +1,4 @@
-﻿using OpenTK.Graphics.OpenGL;
+using OpenTK.Graphics.OpenGL;
 using System;
 using System.Collections.Generic;
 
@@ -62,16 +62,16 @@ namespace AgOpenGPS
         {
             if (!mf.mc.isOutOfBounds)
             {
-                GL.Color4(0,0,0,0.8);
-                GL.LineWidth(6);
+                GL.Color4(0,0,0,0.0); // change from (0,0,0,0.)
+                GL.LineWidth(0); // change from 6 to 0
 
                 for (int i = 0; i < bndList.Count; i++)
                 {
                     bndList[i].fenceLineEar.DrawPolygon();
                 }
 
-                GL.Color4(0.95f, 0.44f, 0.350f, 0.8f);
-                GL.LineWidth(2);
+                GL.Color4(0.031f, 0.024f, 0.847f, 1.0f); //change color boundary 
+                GL.LineWidth(mf.ABLine.lineWidth * 4); // change from 2 to 6 to lineWidth * 4
 
                 for (int i = 0; i < bndList.Count; i++)
                 {
@@ -80,8 +80,8 @@ namespace AgOpenGPS
             }
             else
             {
-                GL.LineWidth(mf.ABLine.lineWidth * 3);
-                GL.Color3(0.95f, 0.25f, 0.250f);
+                GL.LineWidth(mf.ABLine.lineWidth * 4); // change from 3 to 4
+                GL.Color3(0.031f, 0.024f, 0.847f); //change boundary color if out of boundary
 
                 for (int i = 0; i < bndList.Count; i++)
                 {
@@ -101,10 +101,10 @@ namespace AgOpenGPS
                 //the boundary so far
                 vec3 pivot = mf.pivotAxlePos;
                 GL.LineWidth(mf.ABLine.lineWidth);
-                GL.Color3(0.825f, 0.22f, 0.90f);
+                GL.Color3(0.031f, 0.024f, 0.847f); //change waring color if out of boundary 0.031f, 0.024f, 0.847f
                 GL.Begin(PrimitiveType.LineStrip);
                 for (int h = 0; h < bndBeingMadePts.Count; h++) GL.Vertex3(bndBeingMadePts[h].easting, bndBeingMadePts[h].northing, 0);
-                GL.Color3(0.295f, 0.972f, 0.290f);
+                GL.Color3(0.295f, 0.972f, 0.290f); 
                 GL.Vertex3(bndBeingMadePts[0].easting, bndBeingMadePts[0].northing, 0);
                 GL.End();
 
